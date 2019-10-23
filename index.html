@@ -299,7 +299,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-10-23 10:18:59" itemprop="dateModified" datetime="2019-10-23T10:18:59+08:00">2019-10-23</time>
+                <time title="修改时间：2019-10-23 10:46:39" itemprop="dateModified" datetime="2019-10-23T10:46:39+08:00">2019-10-23</time>
               </span>
             
           
@@ -331,30 +331,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <a id="more"></a>
-
-<h3 id="一、配置环境"><a href="#一、配置环境" class="headerlink" title="一、配置环境"></a>一、配置环境</h3><p>1.1 <a href="https://www.nuget.org/" target="_blank" rel="noopener">NuGet</a> 官网注册一个账号，创建一个 API key.</p>
-<p>1.2 下载 <a href="https://www.nuget.org/downloads" target="_blank" rel="noopener">NuGet命令行工具</a>，放到一个系统目录下，方便在不同地方启动。</p>
-<p>1.3 命令行启动 NuGet 命令行工具，设置 ApiKey</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nuget setApiKey &lt;my_api_key&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="二、编辑包描述文件"><a href="#二、编辑包描述文件" class="headerlink" title="二、编辑包描述文件"></a>二、编辑包描述文件</h3><p>2.1 项目目录下（非解决方案）启动  NuGet 命令行工具，运行下面命令生成一个与项目同名的 .nuspec 文件，即：包描述文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nuget spec</span><br></pre></td></tr></table></figure>
-
-<p>2.2 编辑包描述文件，详细可参考<a href="https://docs.microsoft.com/en-us/nuget/reference/nuspec" target="_blank" rel="noopener">官方文档</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">package</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">metadata</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义 NuGet Package 的包名，需要唯一，之后再发布新的版本也不需要更改 --&gt;</span></span><br><span class="line">    &lt;id&gt;ReoGrid.Mvvm&lt;&lt;/id&gt;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 定义 Package 的版本号，这里采用参数形式，会自动从项目属性的 Assembly Information 中读取版本号，也可以直接指定版本字符串，比如 1.0.0 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$version$<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 定义 Package 的标题、描述、作者，以及所有者等 --&gt;</span></span><br><span class="line">    &lt;title&gt;ReoGrid Mvvm &lt;&lt;/title&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">description</span>&gt;</span>a class library for the ReoGrid binding model<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">authors</span>&gt;</span>IUpdatable<span class="tag">&lt;/<span class="name">authors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">owners</span>&gt;</span>IUpdatable<span class="tag">&lt;/<span class="name">owners</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">releaseNotes</span>&gt;</span>The initial version<span class="tag">&lt;/<span class="name">releaseNotes</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 指定 Package 的 License、项目地址、使用的图标、是否会提示下载用户确认 License 等 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">licenseUrl</span>&gt;</span>https://github.com/IUpdatable/ReoGrid.Mvvm/blob/master/LICENSE<span class="tag">&lt;/<span class="name">licenseUrl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">projectUrl</span>&gt;</span>https://github.com/IUpdatable/ReoGrid.Mvvm<span class="tag">&lt;/<span class="name">projectUrl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span> <span class="attr">type</span>=<span class="string">"git"</span> <span class="attr">url</span>=<span class="string">"https://github.com/IUpdatable/ReoGrid.Mvvm"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iconUrl</span>&gt;</span>https://api.nuget.org/v3-flatcontainer/unvell.reogrid.dll/2.1.0/icon<span class="tag">&lt;/<span class="name">iconUrl</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">requireLicenseAcceptance</span>&gt;</span>true<span class="tag">&lt;/<span class="name">requireLicenseAcceptance</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">copyright</span>&gt;</span>Copyright 2018 IUpdatable<span class="tag">&lt;/<span class="name">copyright</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 定义 Package 的 tag 标签，方便分类和搜索 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tags</span>&gt;</span>ReoGrid Binding MVVM WPF Grid Spreadsheet Excel Drawing Chart<span class="tag">&lt;/<span class="name">tags</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 定义当前 NuGet Package 对其他第三方 Package 的依赖 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span> <span class="attr">id</span>=<span class="string">"Newtonsoft.Json"</span> <span class="attr">version</span>=<span class="string">"11.0.1"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dependency</span> <span class="attr">id</span>=<span class="string">"MongoDB.Bson.signed"</span> <span class="attr">version</span>=<span class="string">"2.5.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">metadata</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">files</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义编译时行为 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span> <span class="attr">src</span>=<span class="string">"build\**"</span> <span class="attr">target</span>=<span class="string">"build"</span> /&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="comment">&lt;!-- 当 Package 包含多个依赖项目时，在此添加内部的依赖项目 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span> <span class="attr">src</span>=<span class="string">"bin\Release\Common.Utility.dll"</span> <span class="attr">target</span>=<span class="string">"lib/net462"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">file</span> <span class="attr">src</span>=<span class="string">"bin\Release\SquirrelFramework.Configurations.dll"</span> <span class="attr">target</span>=<span class="string">"lib/net462"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">files</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">package</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="三、生成-NuGet-Package"><a href="#三、生成-NuGet-Package" class="headerlink" title="三、生成 NuGet Package"></a>三、生成 NuGet Package</h3><p>3.1 在确定我们的 Project 版本号设定正确后（如果是再次发布，记得将版本号递增），首先在 Release 模式下 Rebuild 代码。</p>
-<p>3.2 随后，在项目目录打开 CMD，运行以下 NuGet 命令。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nuget pack yourProject.csproj -Properties Configuration=Release -Properties NuspecFile=yourProject.nuspec</span><br></pre></td></tr></table></figure>
-
-<h3 id="四、发布"><a href="#四、发布" class="headerlink" title="四、发布"></a>四、发布</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nuget push yourProject.X.X.X.nupkg -Source https://www.nuget.org/api/v2/package</span><br></pre></td></tr></table></figure>
-
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="http://nap7.com/how-to-publish-nuget/" target="_blank" rel="noopener">如何在 NuGet 发布自己的类库包</a></li>
-<li><a href="https://docs.microsoft.com/zh-cn/nuget/what-is-nuget" target="_blank" rel="noopener">官方文档</a></li>
-</ol>
-
+          <p>NuGet 上发布自己的类库包</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/10/22/NuGet-%E4%B8%8A%E5%8F%91%E5%B8%83%E8%87%AA%E5%B7%B1%E7%9A%84%E7%B1%BB%E5%BA%93%E5%8C%85/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -686,6 +672,133 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://iupdatable.github.io/blog/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IUpdatable">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IUpdatable">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/" class="post-title-link" itemprop="url">《寡头政治集体主义的理论与实践》</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-08 19:00:00" itemprop="dateCreated datePublished" datetime="2017-01-08T19:00:00+08:00">2017-01-08</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2017-01-09 19:55:09" itemprop="dateModified" datetime="2017-01-09T19:55:09+08:00">2017-01-09</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index">
+                    <span itemprop="name">读书</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/08/《寡头政治集体主义的理论与实践》——《1984》/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<ul>
+<li>书名：《1984》</li>
+<li>作者：乔治·奥威尔</li>
+<li>时间：2016年11月</li>
+</ul>
+</blockquote>
+<p>这是《1984》中主人公温斯顿读的一本书《寡头政治集体主义的理论与实践》，全部内容只有两章。这两章内容对《1984》中的两个重要口号——无知即力量和战争即和平——进行了详细解读。相比于《1984》中故事情节部分的文学笔调，这两章犹如用刀划开了专制与集权的表层，将血淋淋的内部呈现为读者,因而更显得犀利、透彻，富有震撼力。觉得读不下去《1984》的可以直接看这里这两章的内容。</p>
+          <!--noindex-->
+          
+            <div class="post-button">
+              <a class="btn" href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://iupdatable.github.io/blog/blog/2017/01/08/2%20+%202%20=%205%20%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -790,133 +903,6 @@
           
             <div class="post-button">
               <a class="btn" href="/blog/2017/01/08/2%20+%202%20=%205%20%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://iupdatable.github.io/blog/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="IUpdatable">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="IUpdatable">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/" class="post-title-link" itemprop="url">《寡头政治集体主义的理论与实践》</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-08 19:00:00" itemprop="dateCreated datePublished" datetime="2017-01-08T19:00:00+08:00">2017-01-08</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2017-01-09 19:55:09" itemprop="dateModified" datetime="2017-01-09T19:55:09+08:00">2017-01-09</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index">
-                    <span itemprop="name">读书</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-        
-      
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/01/08/《寡头政治集体主义的理论与实践》——《1984》/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<ul>
-<li>书名：《1984》</li>
-<li>作者：乔治·奥威尔</li>
-<li>时间：2016年11月</li>
-</ul>
-</blockquote>
-<p>这是《1984》中主人公温斯顿读的一本书《寡头政治集体主义的理论与实践》，全部内容只有两章。这两章内容对《1984》中的两个重要口号——无知即力量和战争即和平——进行了详细解读。相比于《1984》中故事情节部分的文学笔调，这两章犹如用刀划开了专制与集权的表层，将血淋淋的内部呈现为读者,因而更显得犀利、透彻，富有震撼力。觉得读不下去《1984》的可以直接看这里这两章的内容。</p>
-          <!--noindex-->
-          
-            <div class="post-button">
-              <a class="btn" href="/blog/2017/01/08/%E3%80%8A%E5%AF%A1%E5%A4%B4%E6%94%BF%E6%B2%BB%E9%9B%86%E4%BD%93%E4%B8%BB%E4%B9%89%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E5%AE%9E%E8%B7%B5%E3%80%8B%E2%80%94%E2%80%94%E3%80%8A1984%E3%80%8B/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
