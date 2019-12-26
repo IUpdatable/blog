@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32.png?v=7.4.1">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16.png?v=7.4.1">
+  <link rel="mask-icon" href="/blog/images/logo.png?v=7.4.1" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.4.1">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '7.4.1',
+    exturl: false,
+    sidebar: {"position":"left","display":"hide","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="myBase 是一款用于分类管理任意格式文档资料的小型个人数据库软件， 有助于个人用户在( Linux&#x2F;MacOSX&#x2F;Windows )桌面电脑系统上实施文档、笔记、日记、图片和网页等知识内容的分类管理。 简单讲，myBase是一款可附加文件的以单文件加密存储的笔记软件。">
+<meta name="keywords" content="myBase,js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="myBase：插件方式实现代码背景高亮">
+<meta property="og:url" content="https:&#x2F;&#x2F;iupdatable.github.io&#x2F;blog&#x2F;2019&#x2F;12&#x2F;26&#x2F;myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE&#x2F;index.html">
+<meta property="og:site_name" content="IUpdatable">
+<meta property="og:description" content="myBase 是一款用于分类管理任意格式文档资料的小型个人数据库软件， 有助于个人用户在( Linux&#x2F;MacOSX&#x2F;Windows )桌面电脑系统上实施文档、笔记、日记、图片和网页等知识内容的分类管理。 简单讲，myBase是一款可附加文件的以单文件加密存储的笔记软件。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;iupdatable.github.io&#x2F;myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE&#x2F;20191226072809551.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;iupdatable.github.io&#x2F;myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE&#x2F;20191226071812686.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;iupdatable.github.io&#x2F;myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE&#x2F;%E6%BC%94%E7%A4%BA.gif">
+<meta property="og:updated_time" content="2019-12-26T12:50:26.541Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;iupdatable.github.io&#x2F;myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE&#x2F;20191226072809551.png">
+  <link rel="canonical" href="https://iupdatable.github.io/blog/2019/12/26/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>myBase：插件方式实现代码背景高亮 | IUpdatable</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">IUpdatable</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+        
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+    
+      
+      
+        
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+    
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">
+          <i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://iupdatable.github.io/blog/blog/2019/12/26/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="IUpdatable">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="IUpdatable">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            myBase：插件方式实现代码背景高亮
+            
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-26 19:05:15 / 修改时间：20:50:26" itemprop="dateCreated datePublished" datetime="2019-12-26T19:05:15+08:00">2019-12-26</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+        
+      
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/2019/12/26/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/12/26/myBase：插件方式实现代码背景高亮/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="http://www.wjjsoft.com/index_chs.html" target="_blank" rel="noopener">myBase</a> 是一款用于分类管理任意格式文档资料的小型个人数据库软件， 有助于个人用户在( Linux/MacOSX/Windows )桌面电脑系统上实施文档、笔记、日记、图片和网页等知识内容的分类管理。</p>
+<p>简单讲，myBase是一款可附加文件的以单文件加密存储的笔记软件。</p>
+<a id="more"></a>
+<h3 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h3><p>平时做笔记时，代码都是通过VS Code格式化后存储到myBase中。</p>
+<p>效果如下：</p>
+<p><img src="/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/20191226072809551.png" alt=""></p>
+<p>最近看微软的教程时，注意到文档中除了给出一段代码外，为了强调某一部分，会额外辅以背景高亮，效果如下：</p>
+<p><img src="/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/20191226071812686.png" alt=""></p>
+<p>正好myBase支持插件开发，于是想用插件的方式进行实现。</p>
+<h3 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2. 代码实现"></a>2. 代码实现</h3><p>（1） 在 <code>安装目录/plugins/</code> 路径下新建一个文件：<code>Highlight Code Background.js</code>, 代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//sValidation=nyfjs</span></span><br><span class="line"><span class="comment">//sCaption=代码背景高亮</span></span><br><span class="line"><span class="comment">//sHint=Highlight code snippet background</span></span><br><span class="line"><span class="comment">//sCategory=MainMenu.Edit; Context.HtmlEdit</span></span><br><span class="line"><span class="comment">//sCondition=CURDB; DBRW; CURINFOITEM; HTMLEDIT</span></span><br><span class="line"><span class="comment">//sID=p.CustomCodeBackground</span></span><br><span class="line"><span class="comment">//sAppVerMin=7.0</span></span><br><span class="line"><span class="comment">//sAuthor=IUpdatable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> xNyf = <span class="keyword">new</span> CNyfDb(<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">if</span> (xNyf.isOpen()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!xNyf.isReadonly()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (plugin.isContentEditable()) &#123;</span><br><span class="line">                <span class="keyword">var</span> sEditor = plugin.getCurEditorType().toLowerCase();</span><br><span class="line">                <span class="keyword">if</span> (sEditor == <span class="string">'htmledit'</span>) &#123;</span><br><span class="line">                    <span class="keyword">var</span> xFn = <span class="keyword">new</span> CLocalFile(plugin.getPathToDomScripts(), <span class="string">'userJs.js'</span>);</span><br><span class="line">                    <span class="keyword">var</span> jsCode = xFn.loadText(<span class="string">'auto'</span>);</span><br><span class="line">                    plugin.runDomScript(<span class="number">-1</span>, jsCode);</span><br><span class="line">                    plugin.runDomScript(<span class="number">-1</span>, <span class="string">'userJs.highlightCodeBg();'</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    alert(<span class="string">"error:"</span> + error);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（2）在 <code>安装目录/scripts/</code> 路径下新建一个文件：<code>userJs.js</code></p>
+<p>说明一下，代码背景高亮的颜色采用的是VS Code选中代码时呈现的背景色：<code>#264F78</code>，如果想修改为自己喜欢的颜色，直接在下面代码中替换该值即可。</p>
+<p>代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">! <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="string">"object"</span> == <span class="keyword">typeof</span> <span class="built_in">window</span> &amp;&amp; <span class="built_in">window</span> || <span class="string">"object"</span> == <span class="keyword">typeof</span> self &amp;&amp; self;</span><br><span class="line">    <span class="string">"undefined"</span> != <span class="keyword">typeof</span> exports ? e(exports) : n &amp;&amp; (n.userJs = e(&#123;&#125;), <span class="string">"function"</span> == <span class="keyword">typeof</span> define &amp;&amp; define.amd &amp;&amp; define([], <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n.userJs</span><br><span class="line">    &#125;))</span><br><span class="line">&#125;</span><br><span class="line">(</span><br><span class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getParentDiv</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> nodeName = node.nodeName.toLowerCase();</span><br><span class="line">            <span class="keyword">if</span> (nodeName == <span class="string">'div'</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> node;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">var</span> newNode = node.parentNode;</span><br><span class="line">                <span class="keyword">return</span> getParentDiv(newNode);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">replaceSelectionWithHtml</span>(<span class="params">html</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">window</span>.getSelection &amp;&amp; <span class="built_in">window</span>.getSelection().getRangeAt) &#123;</span><br><span class="line">                <span class="keyword">var</span> range;</span><br><span class="line">                range = <span class="built_in">window</span>.getSelection().getRangeAt(<span class="number">0</span>);</span><br><span class="line">                range.deleteContents();</span><br><span class="line">                <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">                div.innerHTML = html;</span><br><span class="line">                <span class="keyword">var</span> frag = <span class="built_in">document</span>.createDocumentFragment(),</span><br><span class="line">                    child;</span><br><span class="line">                <span class="keyword">while</span> ((child = div.firstChild)) &#123;</span><br><span class="line">                    frag.appendChild(child);</span><br><span class="line">                &#125;</span><br><span class="line">                range.insertNode(frag);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.selection &amp;&amp; <span class="built_in">document</span>.selection.createRange) &#123;</span><br><span class="line">                <span class="keyword">var</span> range;</span><br><span class="line">                range = <span class="built_in">document</span>.selection.createRange();</span><br><span class="line">                range.pasteHTML(html);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">highlightCodeBg</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> html = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">var</span> sel = <span class="built_in">window</span>.getSelection();</span><br><span class="line">            <span class="keyword">if</span> (sel.rangeCount) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = sel.rangeCount; i &lt; len; ++i) &#123;</span><br><span class="line">                    <span class="keyword">var</span> container = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">                    container.appendChild(sel.getRangeAt(i).cloneContents());</span><br><span class="line">                    <span class="keyword">var</span> curHtml = container.innerHTML;</span><br><span class="line">                    <span class="keyword">var</span> nodeName = container.firstChild.nodeName.toLowerCase();</span><br><span class="line">                    <span class="comment">// 先为 #text、span 类型的节点添加一个标记：class: CodeBg</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (nodeName == <span class="string">'#text'</span>) &#123;</span><br><span class="line">                        curHtml = <span class="string">'&lt;a class="CodeBg"&gt;'</span> + curHtml + <span class="string">'&lt;/a&gt;'</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nodeName == <span class="string">'span'</span>) &#123;</span><br><span class="line">                        <span class="keyword">var</span> clas = container.firstChild.setAttribute(<span class="string">'class'</span>);</span><br><span class="line">                        <span class="keyword">if</span> (clas == <span class="literal">null</span>) &#123;</span><br><span class="line">                            container.firstChild.setAttribute(<span class="string">'class'</span>, <span class="string">'CodeBg'</span>);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            container.firstChild.getAttribute(<span class="string">'class'</span>, clas + <span class="string">' CodeBg'</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        curHtml = container.innerHTML;</span><br><span class="line">                    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nodeName == <span class="string">'div'</span>) &#123;</span><br><span class="line">                        <span class="keyword">var</span> queryResult = container.querySelectorAll(<span class="string">'div'</span>);</span><br><span class="line">                        <span class="keyword">if</span> (queryResult.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                            <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; queryResult.length; j++) &#123;</span><br><span class="line">                                queryResult[j].setAttribute(<span class="string">'style'</span>, <span class="string">'background-color: #264F78; '</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                            curHtml = container.innerHTML;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        alert(<span class="string">'其它类型节点：'</span> + nodeName);</span><br><span class="line">                    &#125;</span><br><span class="line">                    html += curHtml;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                replaceSelectionWithHtml(html);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 全局中选出标记为 CodeBg 的节点，找出其div类型父节点，添加背景色</span></span><br><span class="line">                <span class="keyword">var</span> queryResult = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.CodeBg'</span>);</span><br><span class="line">                <span class="keyword">if</span> (queryResult.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; queryResult.length; j++) &#123;</span><br><span class="line">                        <span class="keyword">var</span> parentDiv = getParentDiv(queryResult[j]);</span><br><span class="line">                        parentDiv.setAttribute(<span class="string">'style'</span>, <span class="string">'background-color: #264F78; '</span>);</span><br><span class="line">                        queryResult[j].classList.remove(<span class="string">'CodeBg'</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> e.replaceSelectionWithHtml = replaceSelectionWithHtml, e.highlightCodeBg = highlightCodeBg, e.getParentDiv = getParentDiv, e;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>（3）重启一下 myBase</p>
+<h3 id="3-使用演示及说明"><a href="#3-使用演示及说明" class="headerlink" title="3. 使用演示及说明"></a>3. 使用演示及说明</h3><p>（1） 该插件仅适用于网页编辑模式；</p>
+<p>（2） 在多行高亮时，选择代码时要确保顶格选中首行，不要在首行左侧留有空白，否则高亮后会改变原有布局。单行高亮时没有该限制。</p>
+<p>（3）虽然该插件的功能定位为代码背景高亮，但其实质仅是修改了选中部分 div 元素的背景色，所以同样可以高亮任何选中的文本。</p>
+<p><img src="/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/%E6%BC%94%E7%A4%BA.gif" alt=""></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://www.wjjsoft.com/mybase_v7_jsapi.html" target="_blank" rel="noopener">myBase 7.x Javascript APIs Reference</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/blog/tags/myBase/" rel="tag"># myBase</a>
+            
+              <a href="/blog/tags/js/" rel="tag"># js</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/blog/2019/10/22/NuGet-%E4%B8%8A%E5%8F%91%E5%B8%83%E8%87%AA%E5%B7%B1%E7%9A%84%E7%B1%BB%E5%BA%93%E5%8C%85/" rel="next" title="NuGet 上发布自己的类库包">
+                  <i class="fa fa-chevron-left"></i> NuGet 上发布自己的类库包
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/blog/2019/12/26/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E8%84%9A%E6%89%8B%E6%9E%B6/" rel="prev" title="myBase：插件开发脚手架">
+                  myBase：插件开发脚手架 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-需求"><span class="nav-number">1.</span> <span class="nav-text">1. 需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-代码实现"><span class="nav-number">2.</span> <span class="nav-text">2. 代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-使用演示及说明"><span class="nav-number">3.</span> <span class="nav-text">3. 使用演示及说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/blog/images/avatar.png"
+      alt="IUpdatable">
+  <p class="site-author-name" itemprop="name">IUpdatable</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/blog/categories/">
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/blog/tags/">
+          
+        
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">IUpdatable</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/blog/js/utils.js?v=7.4.1"></script><script src="/blog/js/motion.js?v=7.4.1"></script>
+<script src="/blog/js/schemes/muse.js?v=7.4.1"></script>
+
+<script src="/blog/js/next-boot.js?v=7.4.1"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/blog/js/local-search.js?v=7.4.1"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://iupdatable.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function disqus_config() {
+    this.page.url = "https://iupdatable.github.io/blog/2019/12/26/myBase%EF%BC%9A%E6%8F%92%E4%BB%B6%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%83%8C%E6%99%AF%E9%AB%98%E4%BA%AE/";
+    this.page.identifier = "2019/12/26/myBase：插件方式实现代码背景高亮/";
+    this.page.title = 'myBase：插件方式实现代码背景高亮';
+  }
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://iupdatable.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    window.addEventListener('load', loadComments, false);
+  
+</script>
+
+</body>
+</html>
